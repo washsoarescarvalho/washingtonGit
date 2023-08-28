@@ -1,0 +1,72 @@
+Artigos
+HTML e CSS
+Validar CPF com JavaScript
+Percebi que ultimamente os CPFs vem mudando e com essa mudança a maioria dos códigos encontrados na internet ficaram obsoletos.
+Então nas minhas buscas encontrei no próprio site da receita federal como fazer uma validação de um CPF.
+
+Para o nosso exemplo vamos usar o CPF fictício 123.456.789-09
+Vamos começar a validação pelo primeiro dígito verificador, distribuindo os nove primeiros dígitos do CPF.
+Logo abaixo, da esquerda para a direita, vamos colocar os números decrescentes de 10 à 2.
+Então vamos multiplicar as colunas, colocando o resutado de cada uma, em uma terceira linha, conforme mostrado a seguir:
+
+Nove primeiros dígitos antes do traço	1	2	3	4	5	6	7	8	9
+Valor de 10 até 2 para multiplicar	10	9	8	7	6	5	4	3	2
+Resultado da multiplicação	10	18	24	28	30	30	28	24	18
+Agora somamos os resultados obtidos: 10 + 18 + 24 + 28 + 30 + 30 + 28 + 24 + 18 = 210
+
+OBS.: essa parte do cálculo é que se diferencia nos sites em que o algoritmo ficou obsoleto
+Pegamos o valor encontrado (210) multiplicamos por 10 e então dividimos por 11. Vamos considerar para o quociente desta divisão apenas o valor inteiro. O resto da divisão será responsável pelo cálculo do primeiro dígito verificador:
+
+(210 * 10) / 11 = 190
+Resto = 10
+
+Se o valor do resto da divisão for igual a 10 ou 11, este valor será considerado automaticamente como 0 (zero), como é o caso de nosso exemplo.
+Então comparamos se o resto obtido é igual ao primeiro número do dígito verificador, caso não seja igual, o CPF é inválido e os passos seguintes não precisam ser feitos. No nosso caso é igual!
+
+Resto encontrado	Primeiro dígito verificador	
+0	0	Resultados iguais!!
+Caso a condição acima seja verdadeira então repetimos os passos verificando agora os dez primeiros dígitos (incluindo o primeiro dítigo verificador)
+
+Dez primeiros dígitos	1	2	3	4	5	6	7	8	9	0
+Valor de 11 até 2 para multiplicar	11	10	9	8	7	6	5	4	3	2
+Resultado da multiplicação	11	20	27	32	35	36	35	32	27	0
+Soma dos resultados obtidos: 11 + 20 + 27 + 32 + 35 + 36 + 35 + 32 + 27 + 0 = 255
+
+Pegamos o valor encontrado (255) multiplicamos por 10 e então dividimos por 11. Vamos considerar para o quociente desta divisão apenas o valor inteiro. O resto da divisão será responsável pelo cálculo do segundo dígito verificador:
+
+(255 * 10) / 11 = 231
+Resto = 9
+
+Se o valor do resto dessa segunda divisão for igual a 10 ou 11, este valor será considerado automaticamente como 0 (zero), o que não é o caso de nosso exemplo.
+Então comparamos se o resto obtido é igual ao segundo numeral do dígito verificador, caso não seja igual, o CPF é inválido. No nosso caso é igual!
+
+Resto encontrado	Segundo dígito verificador	
+9	9	Resultados iguais!!
+Caso a condição acima seja verdadeira então o CPF é válido.
+
+Veja o código na integra retirado do código fonte do site da receita federal
+
+<script>
+function TestaCPF(strCPF) {
+    var Soma;
+    var Resto;
+    Soma = 0;
+  if (strCPF == "00000000000") return false;
+
+  for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+  Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+
+  Soma = 0;
+    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+    return true;
+}
+var strCPF = "12345678909";
+alert(TestaCPF(strCPF));
+</script
