@@ -14,7 +14,7 @@ Valor de 10 até 2 para multiplicar	10	9	8	7	6	5	4	3	2
 Resultado da multiplicação	10	18	24	28	30	30	28	24	18
 Agora somamos os resultados obtidos: 10 + 18 + 24 + 28 + 30 + 30 + 28 + 24 + 18 = 210
 
-OBS.: essa parte do cálculo é que se diferencia nos sites em que o algoritmo ficou obsoleto
+OBS.: essa parte do cálculo é que se diferencia nos sites em que o algoritmo ficou obsoleto, vamos ver isso
 Pegamos o valor encontrado (210) multiplicamos por 10 e então dividimos por 11. Vamos considerar para o quociente desta divisão apenas o valor inteiro. O resto da divisão será responsável pelo cálculo do primeiro dígito verificador:
 
 (210 * 10) / 11 = 190
