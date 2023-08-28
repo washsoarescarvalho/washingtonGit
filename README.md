@@ -1,2 +1,2 @@
 # washingtonGit
-repositorio privado
+repositorio não privado
